@@ -2,13 +2,17 @@
 
 DeepSeek-AI<br>research@deepseek.com
 
+
 #### Abstract
 
 We introduce our first-generation reasoning models, DeepSeek-R1-Zero and DeepSeek-R1. DeepSeek-R1-Zero, a model trained via large-scale reinforcement learning (RL) without supervised fine-tuning (SFT) as a preliminary step, demonstrates remarkable reasoning capabilities. Through RL, DeepSeek-R1-Zero naturally emerges with numerous powerful and intriguing reasoning behaviors. However, it encounters challenges such as poor readability, and language mixing. To address these issues and further enhance reasoning performance, we introduce DeepSeek-R1, which incorporates multi-stage training and cold-start data before RL. DeepSeekR1 achieves performance comparable to OpenAI-o1-1217 on reasoning tasks. To support the research community, we open-source DeepSeek-R1-Zero, DeepSeek-R1, and six dense models (1.5B, 7B, 8B, 14B, 32B, 70B) distilled from DeepSeek-R1 based on Qwen and Llama.
 
+
+
+
 **Image Description:**  The visualization presents a comparison of accuracy percentages for different search methods across various datasets. DeepSeek-R1, DeepSeek-R1-32B, OpenAI-1-mini, and DeepSeek-V3 are represented.  The DeepSeek-R1 and DeepSeek-R1-32B methods consistently exhibit higher accuracy than the others.  The OpenAI-1-mini and DeepSeek-V3 methods show a decreasing trend in accuracy over time.  The datasets used include AIME 2024, Codeforces, GQA Diamond, MATH-500, and MMMLU.
 
-Figure \(1 |\) Benchmark performance of DeepSeek-R1.
+Figure $1 \mid$ Benchmark performance of DeepSeek-R1.
 
 # Contents 
 
@@ -43,7 +47,7 @@ In recent years, Large Language Models (LLMs) have been undergoing rapid iterati
 
 Recently, post-training has emerged as an important component of the full training pipeline. It has been shown to enhance accuracy on reasoning tasks, align with social values, and adapt to user preferences, all while requiring relatively minimal computational resources against pre-training. In the context of reasoning capabilities, OpenAI's o1 (OpenAI, 2024b) series models were the first to introduce inference-time scaling by increasing the length of the Chain-ofThought reasoning process. This approach has achieved significant improvements in various reasoning tasks, such as mathematics, coding, and scientific reasoning. However, the challenge of effective test-time scaling remains an open question for the research community. Several prior works have explored various approaches, including process-based reward models (Lightman et al., 2023; Uesato et al., 2022; Wang et al., 2023), reinforcement learning (Kumar et al., 2024), and search algorithms such as Monte Carlo Tree Search and Beam Search (Feng et al., 2024; Trinh et al., 2024; Xin et al., 2024). However, none of these methods has achieved general reasoning performance comparable to OpenAI's o1 series models.
 
-In this paper, we take the first step toward improving language model reasoning capabilities using pure reinforcement learning (RL). Our goal is to explore the potential of LLMs to develop reasoning capabilities without any supervised data, focusing on their self-evolution through a pure RL process. Specifically, we use DeepSeek-V3-Base as the base model and employ GRPO (Shao et al., 2024) as the RL framework to improve model performance in reasoning. During training, DeepSeek-R1-Zero naturally emerged with numerous powerful and interesting reasoning behaviors. After thousands of RL steps, DeepSeek-R1-Zero exhibits super performance on reasoning benchmarks. For instance, the pass@1 score on AIME 2024 increases from \(15.6 \%\) to \(71.0 \%\), and with majority voting, the score further improves to \(86.7 \%\), matching the performance of OpenAI-o1-0912.
+In this paper, we take the first step toward improving language model reasoning capabilities using pure reinforcement learning (RL). Our goal is to explore the potential of LLMs to develop reasoning capabilities without any supervised data, focusing on their self-evolution through a pure RL process. Specifically, we use DeepSeek-V3-Base as the base model and employ GRPO (Shao et al., 2024) as the RL framework to improve model performance in reasoning. During training, DeepSeek-R1-Zero naturally emerged with numerous powerful and interesting reasoning behaviors. After thousands of RL steps, DeepSeek-R1-Zero exhibits super performance on reasoning benchmarks. For instance, the pass@1 score on AIME 2024 increases from $15.6 \%$ to $71.0 \%$, and with majority voting, the score further improves to $86.7 \%$, matching the performance of OpenAI-o1-0912.
 
 However, DeepSeek-R1-Zero encounters challenges such as poor readability, and language mixing. To address these issues and further enhance reasoning performance, we introduce DeepSeek-R1, which incorporates a small amount of cold-start data and a multi-stage training pipeline. Specifically, we begin by collecting thousands of cold-start data to fine-tune the DeepSeek-V3-Base model. Following this, we perform reasoning-oriented RL like DeepSeek-R1Zero. Upon nearing convergence in the RL process, we create new SFT data through rejection sampling on the RL checkpoint, combined with supervised data from DeepSeek-V3 in domains such as writing, factual QA, and self-cognition, and then retrain the DeepSeek-V3-Base model. After fine-tuning with the new data, the checkpoint undergoes an additional RL process, taking into account prompts from all scenarios. After these steps, we obtained a checkpoint referred to as DeepSeek-R1, which achieves performance on par with OpenAI-o1-1217.
 
@@ -56,17 +60,20 @@ We further explore distillation from DeepSeek-R1 to smaller dense models. Using 
 - We directly apply reinforcement learning (RL) to the base model without relying on supervised fine-tuning (SFT) as a preliminary step. This approach allows the model to explore chain-of-thought (CoT) for solving complex problems, resulting in the development of DeepSeek-R1-Zero. DeepSeek-R1-Zero demonstrates capabilities such as self-verification, reflection, and generating long CoTs, marking a significant milestone for the research community. Notably, it is the first open research to validate that reasoning capabilities of LLMs can be incentivized purely through RL, without the need for SFT. This breakthrough paves the way for future advancements in this area.
 - We introduce our pipeline to develop DeepSeek-R1. The pipeline incorporates two RL stages aimed at discovering improved reasoning patterns and aligning with human preferences, as well as two SFT stages that serve as the seed for the model's reasoning and non-reasoning capabilities. We believe the pipeline will benefit the industry by creating better models.
 
+
 ## Distillation: Smaller Models Can Be Powerful Too
 
 - We demonstrate that the reasoning patterns of larger models can be distilled into smaller models, resulting in better performance compared to the reasoning patterns discovered through RL on small models. The open source DeepSeek-R1, as well as its API, will benefit the research community to distill better smaller models in the future.
-- Using the reasoning data generated by DeepSeek-R1, we fine-tuned several dense models that are widely used in the research community. The evaluation results demonstrate that the distilled smaller dense models perform exceptionally well on benchmarks. DeepSeek-R1-Distill-Qwen-7B achieves 55.5\% on AIME 2024, surpassing QwQ-32B-Preview. Additionally, DeepSeek-R1-Distill-Qwen-32B scores 72.6\% on AIME 2024, 94.3\% on MATH-500, and \(57.2 \%\) on LiveCodeBench. These results significantly outperform previous opensource models and are comparable to o1-mini. We open-source distilled 1.5B, 7B, 8B, 14B, 32B, and 70B checkpoints based on Qwen2.5 and Llama3 series to the community.
+- Using the reasoning data generated by DeepSeek-R1, we fine-tuned several dense models that are widely used in the research community. The evaluation results demonstrate that the distilled smaller dense models perform exceptionally well on benchmarks. DeepSeek-R1-Distill-Qwen-7B achieves 55.5\% on AIME 2024, surpassing QwQ-32B-Preview. Additionally, DeepSeek-R1-Distill-Qwen-32B scores 72.6\% on AIME 2024, 94.3\% on MATH-500, and $57.2 \%$ on LiveCodeBench. These results significantly outperform previous opensource models and are comparable to o1-mini. We open-source distilled 1.5B, 7B, 8B, 14B, 32B, and 70B checkpoints based on Qwen2.5 and Llama3 series to the community.
+
 
 ### 1.2. Summary of Evaluation Results
 
-- Reasoning tasks: (1) DeepSeek-R1 achieves a score of 79.8\% Pass@1 on AIME 2024, slightly surpassing OpenAI-o1-1217. On MATH-500, it attains an impressive score of \(97.3 \%\), performing on par with OpenAI-o1-1217 and significantly outperforming other models. (2) On coding-related tasks, DeepSeek-R1 demonstrates expert level in code competition tasks, as it achieves 2,029 Elo rating on Codeforces outperforming \(96.3 \%\) human participants in the competition. For engineering-related tasks, DeepSeek-R1 performs slightly better than DeepSeek-V3, which could help developers in real world tasks.
-- Knowledge: On benchmarks such as MMLU, MMLU-Pro, and GPQA Diamond, DeepSeekR1 achieves outstanding results, significantly outperforming DeepSeek-V3 with scores of \(90.8 \%\) on MMLU, \(84.0 \%\) on MMLU-Pro, and \(71.5 \%\) on GPQA Diamond. While its performance is slightly below that of OpenAI-o1-1217 on these benchmarks, DeepSeek-R1 surpasses other closed-source models, demonstrating its competitive edge in educational tasks. On the factual benchmark SimpleQA, DeepSeek-R1 outperforms DeepSeek-V3, demonstrating its capability in handling fact-based queries. A similar trend is observed where OpenAI-o1 surpasses 40 on this benchmark.
+- Reasoning tasks: (1) DeepSeek-R1 achieves a score of 79.8\% Pass@1 on AIME 2024, slightly surpassing OpenAI-o1-1217. On MATH-500, it attains an impressive score of $97.3 \%$, performing on par with OpenAI-o1-1217 and significantly outperforming other models. (2) On coding-related tasks, DeepSeek-R1 demonstrates expert level in code competition tasks, as it achieves 2,029 Elo rating on Codeforces outperforming $96.3 \%$ human participants in the competition. For engineering-related tasks, DeepSeek-R1 performs slightly better than DeepSeek-V3, which could help developers in real world tasks.
+- Knowledge: On benchmarks such as MMLU, MMLU-Pro, and GPQA Diamond, DeepSeekR1 achieves outstanding results, significantly outperforming DeepSeek-V3 with scores of $90.8 \%$ on MMLU, $84.0 \%$ on MMLU-Pro, and $71.5 \%$ on GPQA Diamond. While its performance is slightly below that of OpenAI-o1-1217 on these benchmarks, DeepSeek-R1 surpasses other closed-source models, demonstrating its competitive edge in educational tasks. On the factual benchmark SimpleQA, DeepSeek-R1 outperforms DeepSeek-V3, demonstrating its capability in handling fact-based queries. A similar trend is observed where OpenAI-o1 surpasses 40 on this benchmark.
 
-- Others: DeepSeek-R1 also excels in a wide range of tasks, including creative writing, general question answering, editing, summarization, and more. It achieves an impressive length-controlled win-rate of \(87.6 \%\) on AlpacaEval 2.0 and a win-rate of \(92.3 \%\) on ArenaHard, showcasing its strong ability to intelligently handle non-exam-oriented queries. Additionally, DeepSeek-R1 demonstrates outstanding performance on tasks requiring long-context understanding, substantially outperforming DeepSeek-V3 on long-context benchmarks.
+- Others: DeepSeek-R1 also excels in a wide range of tasks, including creative writing, general question answering, editing, summarization, and more. It achieves an impressive length-controlled win-rate of $87.6 \%$ on AlpacaEval 2.0 and a win-rate of $92.3 \%$ on ArenaHard, showcasing its strong ability to intelligently handle non-exam-oriented queries. Additionally, DeepSeek-R1 demonstrates outstanding performance on tasks requiring long-context understanding, substantially outperforming DeepSeek-V3 on long-context benchmarks.
+
 
 # 2. Approach 
 
@@ -80,29 +87,25 @@ Reinforcement learning has demonstrated significant effectiveness in reasoning t
 
 ### 2.2.1. Reinforcement Learning Algorithm
 
-Group Relative Policy Optimization In order to save the training costs of RL, we adopt Group Relative Policy Optimization (GRPO) (Shao et al., 2024), which foregoes the critic model that is typically the same size as the policy model, and estimates the baseline from group scores instead. Specifically, for each question \(q\), GRPO samples a group of outputs \(\) from the old policy \(π_θ_{ {old }}\) and then optimizes the policy model \(π_θ\) by maximizing the following objective:
+Group Relative Policy Optimization In order to save the training costs of RL, we adopt Group Relative Policy Optimization (GRPO) (Shao et al., 2024), which foregoes the critic model that is typically the same size as the policy model, and estimates the baseline from group scores instead. Specifically, for each question $q$, GRPO samples a group of outputs $\left\{o_{1}, o_{2}, \cdots, o_{G}\right\}$ from the old policy $\pi_{\theta_{\text {old }}}$ and then optimizes the policy model $\pi_{\theta}$ by maximizing the following objective:
 
-```math
-
+$$
 \begin{aligned}
-\mathcal{J}_G R P O(θ)= & \mathbb{E}[q \sim P(Q),\left{o_i\right}_i=1^G \sim π_θ_{o l d}(O | q)] \\
-& 1/G ∑_i=1^G(\min (\frac{π_θ(o_i | q)}{π_θ_{o l d}(o_i | q)} A_i, clip(\frac{π_θ(o_i | q)}{π_θ_{o l d}(o_i | q)}, 1-ε, 1+ε) A_i)-β \mathbb{D}_K L(π_θ \| π_r e f)), \\
-& \mathbb{D}_K L(π_θ \| π_r e f)=\frac{π_r e f(o_i | q)}{π_θ(o_i | q)}-\log \frac{π_r e f(o_i | q)}{π_θ(o_i | q)}-1,
+\mathcal{J}_{G R P O}(\theta)= & \mathbb{E}\left[q \sim P(Q),\left\{o_{i}\right\}_{i=1}^{G} \sim \pi_{\theta_{o l d}}(O \mid q)\right] \\
+& \frac{1}{G} \sum_{i=1}^{G}\left(\min \left(\frac{\pi_{\theta}\left(o_{i} \mid q\right)}{\pi_{\theta_{o l d}}\left(o_{i} \mid q\right)} A_{i}, \operatorname{clip}\left(\frac{\pi_{\theta}\left(o_{i} \mid q\right)}{\pi_{\theta_{o l d}}\left(o_{i} \mid q\right)}, 1-\varepsilon, 1+\varepsilon\right) A_{i}\right)-\beta \mathbb{D}_{K L}\left(\pi_{\theta} \| \pi_{r e f}\right)\right), \\
+& \mathbb{D}_{K L}\left(\pi_{\theta} \| \pi_{r e f}\right)=\frac{\pi_{r e f}\left(o_{i} \mid q\right)}{\pi_{\theta}\left(o_{i} \mid q\right)}-\log \frac{\pi_{r e f}\left(o_{i} \mid q\right)}{\pi_{\theta}\left(o_{i} \mid q\right)}-1,
 \end{aligned}
+$$
 
-```
+where $\varepsilon$ and $\beta$ are hyper-parameters, and $A_{i}$ is the advantage, computed using a group of rewards $\left\{r_{1}, r_{2}, \ldots, r_{G}\right\}$ corresponding to the outputs within each group:
 
-where \(ε\) and \(β\) are hyper-parameters, and \(A_i\) is the advantage, computed using a group of rewards \(\) corresponding to the outputs within each group:
-
-```math
-
-A_i=\frac{r_i-mean(\left{r_1, r_2, ⋯, r_G\right})}{std(\left{r_1, r_2, ⋯, r_G\right})}
-
-```
+$$
+A_{i}=\frac{r_{i}-\operatorname{mean}\left(\left\{r_{1}, r_{2}, \cdots, r_{G}\right\}\right)}{\operatorname{std}\left(\left\{r_{1}, r_{2}, \cdots, r_{G}\right\}\right)}
+$$
 
 A conversation between User and Assistant. The user asks a question, and the Assistant solves it. The assistant first thinks about the reasoning process in the mind and then provides the user with the answer. The reasoning process and answer are enclosed within <think> </think> and <answer> </answer> tags, respectively, i.e., <think> reasoning process here </think> <answer> answer here </answer>. User: prompt. Assistant:
 
-Table \(1 |\) Template for DeepSeek-R1-Zero. prompt will be replaced with the specific reasoning question during training.
+Table $1 \mid$ Template for DeepSeek-R1-Zero. prompt will be replaced with the specific reasoning question during training.
 
 # 2.2.2. Reward Modeling 
 
@@ -119,7 +122,7 @@ To train DeepSeek-R1-Zero, we begin by designing a straightforward template that
 
 ### 2.2.4. Performance, Self-evolution Process and Aha Moment of DeepSeek-R1-Zero
 
-Performance of DeepSeek-R1-Zero Figure 2 depicts the performance trajectory of DeepSeek-R1-Zero on the AIME 2024 benchmark throughout the reinforcement learning (RL) training process. As illustrated, DeepSeek-R1-Zero demonstrates a steady and consistent enhancement in performance as the RL training advances. Notably, the average pass@1 score on AIME 2024 shows a significant increase, jumping from an initial \(15.6 \%\) to an impressive \(71.0 \%\), reaching performance levels comparable to OpenAI-o1-0912. This significant improvement highlights the efficacy of our RL algorithm in optimizing the model's performance over time.
+Performance of DeepSeek-R1-Zero Figure 2 depicts the performance trajectory of DeepSeek-R1-Zero on the AIME 2024 benchmark throughout the reinforcement learning (RL) training process. As illustrated, DeepSeek-R1-Zero demonstrates a steady and consistent enhancement in performance as the RL training advances. Notably, the average pass@1 score on AIME 2024 shows a significant increase, jumping from an initial $15.6 \%$ to an impressive $71.0 \%$, reaching performance levels comparable to OpenAI-o1-0912. This significant improvement highlights the efficacy of our RL algorithm in optimizing the model's performance over time.
 
 Table 2 provides a comparative analysis between DeepSeek-R1-Zero and OpenAI's o1-0912 models across a variety of reasoning-related benchmarks. The findings reveal that RL empowers
 
@@ -132,15 +135,18 @@ Table 2 provides a comparative analysis between DeepSeek-R1-Zero and OpenAI's o1
 
 Table 2 | Comparison of DeepSeek-R1-Zero and OpenAI o1 models on reasoning-related benchmarks.
 
+
 **Image Description:**  The visualization shows the training accuracy of DeepSeek-R1-Zero AI models over time. The red line represents the 'r1-zero-cons/16' model, while the blue line represents the 'r1-zero-pass/1' model. Both models show an increasing trend in accuracy over time, with the 'r1-zero-cons/16' model consistently having higher accuracy than the 'r1-zero-pass/1' model. The red line exhibits a more pronounced increase in accuracy compared to the blue line, especially during the initial stages of training. The data suggests that the 'r1-zero-cons/16' model achieves higher accuracy over time compared to the 'r1-zero-pass/1' model.
 
 Figure 2 | AIME accuracy of DeepSeek-R1-Zero during training. For each question, we sample 16 responses and calculate the overall average accuracy to ensure a stable evaluation.
 
-DeepSeek-R1-Zero to attain robust reasoning capabilities without the need for any supervised fine-tuning data. This is a noteworthy achievement, as it underscores the model's ability to learn and generalize effectively through RL alone. Additionally, the performance of DeepSeek-R1-Zero can be further augmented through the application of majority voting. For example, when majority voting is employed on the AIME benchmark, DeepSeek-R1-Zero's performance escalates from \(71.0 \%\) to \(86.7 \%\), thereby exceeding the performance of OpenAI-o1-0912. The ability of DeepSeek-R1-Zero to achieve such competitive performance, both with and without majority voting, highlights its strong foundational capabilities and its potential for further advancements in reasoning tasks.
+DeepSeek-R1-Zero to attain robust reasoning capabilities without the need for any supervised fine-tuning data. This is a noteworthy achievement, as it underscores the model's ability to learn and generalize effectively through RL alone. Additionally, the performance of DeepSeek-R1-Zero can be further augmented through the application of majority voting. For example, when majority voting is employed on the AIME benchmark, DeepSeek-R1-Zero's performance escalates from $71.0 \%$ to $86.7 \%$, thereby exceeding the performance of OpenAI-o1-0912. The ability of DeepSeek-R1-Zero to achieve such competitive performance, both with and without majority voting, highlights its strong foundational capabilities and its potential for further advancements in reasoning tasks.
 
 Self-evolution Process of DeepSeek-R1-Zero The self-evolution process of DeepSeek-R1-Zero is a fascinating demonstration of how RL can drive a model to improve its reasoning capabilities autonomously. By initiating RL directly from the base model, we can closely monitor the model's progression without the influence of the supervised fine-tuning stage. This approach provides a clear view of how the model evolves over time, particularly in terms of its ability to handle complex reasoning tasks.
 
 As depicted in Figure 3, the thinking time of DeepSeek-R1-Zero shows consistent improve-
+
+
 
 **Image Description:**  The visualization shows the average length per response during training for DeepSeek-R1-Zero. The data points are represented by blue circles, and the average length is measured by the y-axis. The graph displays a clear upward trend, indicating a positive correlation between the number of steps and the average response length.  There are noticeable fluctuations and peaks in the data, suggesting some level of inherent variability in the model's performance. The data points appear to cluster around a value of approximately 5000, with some variability in the error bars.
 
@@ -153,19 +159,19 @@ Aha Moment of DeepSeek-R1-Zero A particularly intriguing phenomenon observed dur
 
 This moment is not only an "aha moment" for the model but also for the researchers observing its behavior. It underscores the power and beauty of reinforcement learning: rather than explicitly teaching the model on how to solve a problem, we simply provide it with the right incentives, and it autonomously develops advanced problem-solving strategies. The "aha moment" serves as a powerful reminder of the potential of RL to unlock new levels of intelligence in artificial systems, paving the way for more autonomous and adaptive models in the future.
 
-Question: If \(a>1\), then the sum of the real solutions of \(√a-=x\) is equal to
+Question: If $a>1$, then the sum of the real solutions of $\sqrt{a-\sqrt{a+x}}=x$ is equal to
 Response: <think>
-To solve the equation \(√a-=x\), let's start by squaring both \(⋯\)
-\((√a-)^2=x^2 ⟹ a-√a+x=x^2\).
+To solve the equation $\sqrt{a-\sqrt{a+x}}=x$, let's start by squaring both $\cdots$
+$\left(\sqrt{a-\sqrt{a+x}}\right)^{2}=x^{2} \Longrightarrow a-\sqrt{a+x}=x^{2}$.
 Rearrange to isolate the inner square root term:
-\((a-x^2)^2=a+x ⟹ a^2-2 a x^2+(x^2)^2=a+x ⟹ x^4-2 a x^2-x+(a^2-a)=0\)
+$\left(a-x^{2}\right)^{2}=a+x \Longrightarrow a^{2}-2 a x^{2}+\left(x^{2}\right)^{2}=a+x \Longrightarrow x^{4}-2 a x^{2}-x+\left(a^{2}-a\right)=0$
 Wait, wait. Wait. That's an aha moment I can flag here.
-Let's reevaluate this step-by-step to identify if the correct sum can be \(⋯\)
+Let's reevaluate this step-by-step to identify if the correct sum can be $\cdots$
 We started with the equation:
-\(√a-=x\)
+$\sqrt{a-\sqrt{a+x}}=x$
 First, let's square both sides:
-\(a-√a+x=x^2 ⟹ √a+x=a-x^2\)
-Next, I could square both sides again, treating the equation: \(⋯\)
+$a-\sqrt{a+x}=x^{2} \Longrightarrow \sqrt{a+x}=a-x^{2}$
+Next, I could square both sides again, treating the equation: $\cdots$
 ・.
 Table 3 | An interesting "aha moment" of an intermediate version of DeepSeek-R1-Zero. The model learns to rethink using an anthropomorphic tone. This is also an aha moment for us, allowing us to witness the power and beauty of reinforcement learning.
 
@@ -185,6 +191,7 @@ include:
 
 - Readability: A key limitation of DeepSeek-R1-Zero is that its content is often not suitable for reading. Responses may mix multiple languages or lack markdown formatting to highlight answers for users. In contrast, when creating cold-start data for DeepSeek-R1, we design a readable pattern that includes a summary at the end of each response and filters out responses that are not reader-friendly. Here, we define the output format as | special_token | <reasoning_process> | special_token | <summary>, where the reasoning process is the CoT for the query, and the summary is used to summarize the reasoning results.
 - Potential: By carefully designing the pattern for cold-start data with human priors, we observe better performance against DeepSeek-R1-Zero. We believe the iterative training is a better way for reasoning models.
+
 
 # 2.3.2. Reasoning-oriented Reinforcement Learning 
 
@@ -206,7 +213,7 @@ To further align the model with human preferences, we implement a secondary rein
 
 ### 2.4. Distillation: Empower Small Models with Reasoning Capability
 
-To equip more efficient smaller models with reasoning capabilities like DeekSeek-R1, we directly fine-tuned open-source models like Qwen (Qwen, 2024b) and Llama (AI@Meta, 2024) using the 800 k samples curated with DeepSeek-R1, as detailed in \( 2.3 .3\). Our findings indicate that this straightforward distillation method significantly enhances the reasoning abilities of smaller models. The base models we use here are Qwen2.5-Math-1.5B, Qwen2.5-Math-7B, Qwen2.514B, Qwen2.5-32B, Llama-3.1-8B, and Llama-3.3-70B-Instruct. We select Llama-3.3 because its reasoning capability is slightly better than that of Llama-3.1.
+To equip more efficient smaller models with reasoning capabilities like DeekSeek-R1, we directly fine-tuned open-source models like Qwen (Qwen, 2024b) and Llama (AI@Meta, 2024) using the 800 k samples curated with DeepSeek-R1, as detailed in $\S 2.3 .3$. Our findings indicate that this straightforward distillation method significantly enhances the reasoning abilities of smaller models. The base models we use here are Qwen2.5-Math-1.5B, Qwen2.5-Math-7B, Qwen2.514B, Qwen2.5-32B, Llama-3.1-8B, and Llama-3.3-70B-Instruct. We select Llama-3.3 because its reasoning capability is slightly better than that of Llama-3.1.
 
 For distilled models, we apply only SFT and do not include an RL stage, even though incorporating RL could substantially boost model performance. Our primary goal here is to demonstrate the effectiveness of the distillation technique, leaving the exploration of the RL stage to the broader research community.
 
@@ -214,7 +221,7 @@ For distilled models, we apply only SFT and do not include an RL stage, even tho
 
 Benchmarks We evaluate models on MMLU (Hendrycks et al., 2020), MMLU-Redux (Gema et al., 2024), MMLU-Pro (Wang et al., 2024), C-Eval (Huang et al., 2023), and CMMLU (Li et al., 2023), IFEval (Zhou et al., 2023), FRAMES (Krishna et al., 2024), GPQA Diamond (Rein et al., 2023), SimpleQA (OpenAI, 2024c), C-SimpleQA (He et al., 2024), SWE-Bench Verified (OpenAI,
 
-2024d), Aider \({ }^1\), LiveCodeBench (Jain et al., 2024) (2024-08 - 2025-01), Codeforces \({ }^2\), Chinese National High School Mathematics Olympiad (CNMO 2024) \({ }^3\), and American Invitational Mathematics Examination 2024 (AIME 2024) (MAA, 2024). In addition to standard benchmarks, we also evaluate our models on open-ended generation tasks using LLMs as judges. Specifically, we adhere to the original configurations of AlpacaEval 2.0 (Dubois et al., 2024) and Arena-Hard (Li et al., 2024), which leverage GPT-4-Turbo-1106 as judges for pairwise comparisons. Here, we only feed the final summary to evaluation to avoid the length bias. For distilled models, we report representative results on AIME 2024, MATH-500, GPQA Diamond, Codeforces, and LiveCodeBench.
+2024d), Aider ${ }^{1}$, LiveCodeBench (Jain et al., 2024) (2024-08 - 2025-01), Codeforces ${ }^{2}$, Chinese National High School Mathematics Olympiad (CNMO 2024) ${ }^{3}$, and American Invitational Mathematics Examination 2024 (AIME 2024) (MAA, 2024). In addition to standard benchmarks, we also evaluate our models on open-ended generation tasks using LLMs as judges. Specifically, we adhere to the original configurations of AlpacaEval 2.0 (Dubois et al., 2024) and Arena-Hard (Li et al., 2024), which leverage GPT-4-Turbo-1106 as judges for pairwise comparisons. Here, we only feed the final summary to evaluation to avoid the length bias. For distilled models, we report representative results on AIME 2024, MATH-500, GPQA Diamond, Codeforces, and LiveCodeBench.
 
 Evaluation Prompts Following the setup in DeepSeek-V3, standard benchmarks such as MMLU, DROP, GPQA Diamond, and SimpleQA are evaluated using prompts from the simpleevals framework. For MMLU-Redux, we adopt the Zero-Eval prompt format (Lin, 2024) in a zero-shot setting. In terms of MMLU-Pro, C-Eval and CLUE-WSC, since the original prompts are few-shot, we slightly modify the prompt to the zero-shot setting. The CoT in few-shot may hurt the performance of DeepSeek-R1. Other datasets follow their original evaluation protocols with default prompts provided by their creators. For code and math benchmarks, the HumanEval-Mul dataset covers eight mainstream programming languages (Python, Java, C++, C\#, JavaScript, TypeScript, PHP, and Bash). Model performance on LiveCodeBench is evaluated using CoT format, with data collected between August 2024 and January 2025. The Codeforces dataset is evaluated using problems from 10 Div. 2 contests along with expert-crafted test cases, after which the expected ratings and percentages of competitors are calculated. SWE-Bench verified results are obtained via the agentless framework (Xia et al., 2024). AIDER-related benchmarks are measured using a "diff" format. DeepSeek-R1 outputs are capped at a maximum of 32,768 tokens for each benchmark.
 
@@ -227,9 +234,9 @@ Generation Setup For all our models, the maximum generation length is set to 32,
 For education-oriented knowledge benchmarks such as MMLU, MMLU-Pro, and GPQA Diamond, DeepSeek-R1 demonstrates superior performance compared to DeepSeek-V3. This improvement is primarily attributed to enhanced accuracy in STEM-related questions, where significant gains are achieved through large-scale reinforcement learning (RL). Additionally, DeepSeek-R1 excels on FRAMES, a long-context-dependent QA task, showcasing its strong document analysis capabilities. This highlights the potential of reasoning models in AI-driven
 
 [^0]
-[^0]:    \({ }^1\) https://aider.chat
-    \({ }^2\) https://codeforces.com
-    \({ }^3\) https://www.cms.org.cn/Home/comp/comp/cid/12.html
+[^0]:    ${ }^{1}$ https://aider.chat
+    ${ }^{2}$ https://codeforces.com
+    ${ }^{3}$ https://www.cms.org.cn/Home/comp/comp/cid/12.html
 
 | Benchmark (Metric) |  | Claude-3.5- GPT-40 DeepSeek |  |  | OpenAI OpenAI |  | DeepSeek |
 | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
@@ -260,7 +267,7 @@ For education-oriented knowledge benchmarks such as MMLU, MMLU-Pro, and GPQA Dia
 | C-SimpleQA (Correct) |  | 55.4 | 58.7 | 68.0 | 40.3 | - | 63.7 |
 
 Table 4 | Comparison between DeepSeek-R1 and other representative models.
-search and data analysis tasks. On the factual benchmark SimpleQA, DeepSeek-R1 outperforms DeepSeek-V3, demonstrating its capability in handling fact-based queries. A similar trend is observed where OpenAI-o1 surpasses GPT-40 on this benchmark. However, DeepSeek-R1 performs worse than DeepSeek-V3 on the Chinese SimpleQA benchmark, primarily due to its tendency to refuse answering certain queries after safety RL. Without safety RL, DeepSeek-R1 could achieve an accuracy of over \(70 \%\).
+search and data analysis tasks. On the factual benchmark SimpleQA, DeepSeek-R1 outperforms DeepSeek-V3, demonstrating its capability in handling fact-based queries. A similar trend is observed where OpenAI-o1 surpasses GPT-40 on this benchmark. However, DeepSeek-R1 performs worse than DeepSeek-V3 on the Chinese SimpleQA benchmark, primarily due to its tendency to refuse answering certain queries after safety RL. Without safety RL, DeepSeek-R1 could achieve an accuracy of over $70 \%$.
 
 DeepSeek-R1 also delivers impressive results on IF-Eval, a benchmark designed to assess a model's ability to follow format instructions. These improvements can be linked to the inclusion of instruction-following data during the final stages of supervised fine-tuning (SFT) and RL training. Furthermore, remarkable performance is observed on AlpacaEval2.0 and ArenaHard, indicating DeepSeek-R1's strengths in writing tasks and open-domain question answering. Its significant outperformance of DeepSeek-V3 underscores the generalization benefits of large-scale RL, which not only boosts reasoning capabilities but also improves performance across diverse domains. Moreover, the summary lengths generated by DeepSeek-R1 are concise, with an average of 689 tokens on ArenaHard and 2,218 characters on AlpacaEval 2.0. This indicates that DeepSeek-R1 avoids introducing length bias during GPT-based evaluations, further solidifying its robustness across multiple tasks.
 
@@ -275,14 +282,14 @@ performance of DeepSeek-R1 will improve in the next version, as the amount of re
 |  | pass@1 | cons@64 | pass@1 | pass@1 | pass@1 | rating |
 | GPT-40-0513 | 9.3 | 13.4 | 74.6 | 49.9 | 32.9 | 759 |
 | Claude-3.5-Sonnet-1022 | 16.0 | 26.7 | 78.3 | 65.0 | 38.9 | 717 |
-| OpenAI-o1-mini | 63.6 | 80.0 | 90.0 | 60.0 | 53.8 | \(\) |
+| OpenAI-o1-mini | 63.6 | 80.0 | 90.0 | 60.0 | 53.8 | $\mathbf{1 8 2 0}$ |
 | QwQ-32B-Preview | 50.0 | 60.0 | 90.6 | 54.5 | 41.9 | 1316 |
 | DeepSeek-R1-Distill-Qwen-1.5B | 28.9 | 52.7 | 83.9 | 33.8 | 16.9 | 954 |
 | DeepSeek-R1-Distill-Qwen-7B | 55.5 | 83.3 | 92.8 | 49.1 | 37.6 | 1189 |
 | DeepSeek-R1-Distill-Qwen-14B | 69.7 | 80.0 | 93.9 | 59.1 | 53.1 | 1481 |
-| DeepSeek-R1-Distill-Qwen-32B | \(\) | 83.3 | 94.3 | 62.1 | 57.2 | 1691 |
+| DeepSeek-R1-Distill-Qwen-32B | $\mathbf{7 2 . 6}$ | 83.3 | 94.3 | 62.1 | 57.2 | 1691 |
 | DeepSeek-R1-Distill-Llama-8B | 50.4 | 80.0 | 89.1 | 49.0 | 39.6 | 1205 |
-| DeepSeek-R1-Distill-Llama-70B | 70.0 | \(\) | \(\) | \(\) | \(\) | 1633 |
+| DeepSeek-R1-Distill-Llama-70B | 70.0 | $\mathbf{8 6 . 7}$ | $\mathbf{9 4 . 5}$ | $\mathbf{6 5 . 2}$ | $\mathbf{5 7 . 5}$ | 1633 |
 
 Table 5 | Comparison of DeepSeek-R1 distilled models and other comparable models on reasoning-related benchmarks.
 
@@ -297,7 +304,7 @@ As shown in Table 5, simply distilling DeepSeek-R1's outputs enables the efficie
 |  | pass@1 | cons@64 | pass@1 | pass@1 | pass@1 |  |
 | QwQ-32B-Preview | 50.0 | 60.0 | 90.6 | 54.5 | 41.9 |  |
 | DeepSeek-R1-Zero-Qwen-32B | 47.0 | 60.0 | 91.6 | 55.0 | 40.2 |  |
-| DeepSeek-R1-Distill-Qwen-32B | \(\) | \(\) | \(\) | \(\) | \(\) |  |
+| DeepSeek-R1-Distill-Qwen-32B | $\mathbf{7 2 . 6}$ | $\mathbf{8 3 . 3}$ | $\mathbf{9 4 . 3}$ | $\mathbf{6 2 . 1}$ | $\mathbf{5 7 . 2}$ |  |
 
 Table 6 | Comparison of distilled and RL Models on Reasoning-Related Benchmarks.
 In Section 3.2, we can see that by distilling DeepSeek-R1, the small model can achieve impressive results. However, there is still one question left: can the model achieve comparable performance through the large-scale RL training discussed in the paper without distillation?
@@ -324,7 +331,7 @@ significant challenge.
 
 In this work, we share our journey in enhancing model reasoning abilities through reinforcement learning (RL). DeepSeek-R1-Zero represents a pure RL approach without relying on cold-start data, achieving strong performance across various tasks. DeepSeek-R1 is more powerful, leveraging cold-start data alongside iterative RL fine-tuning. Ultimately, DeepSeek-R1 achieves performance comparable to OpenAI-o1-1217 on a range of tasks.
 
-We further explore distillation the reasoning capability to small dense models. We use DeepSeek-R1 as the teacher model to generate 800K data, and fine-tune several small dense models. The results are promising: DeepSeek-R1-Distill-Qwen-1.5B outperforms GPT-4o and Claude-3.5-Sonnet on math benchmarks with \(28.9 \%\) on AIME and \(83.9 \%\) on MATH. Other dense models also achieve impressive results, significantly outperforming other instruction-tuned models based on the same underlying checkpoints.
+We further explore distillation the reasoning capability to small dense models. We use DeepSeek-R1 as the teacher model to generate 800K data, and fine-tune several small dense models. The results are promising: DeepSeek-R1-Distill-Qwen-1.5B outperforms GPT-4o and Claude-3.5-Sonnet on math benchmarks with $28.9 \%$ on AIME and $83.9 \%$ on MATH. Other dense models also achieve impressive results, significantly outperforming other instruction-tuned models based on the same underlying checkpoints.
 
 In the future, we plan to invest in research across the following directions for DeepSeek-R1.
 
@@ -332,6 +339,7 @@ In the future, we plan to invest in research across the following directions for
 - Language Mixing: DeepSeek-R1 is currently optimized for Chinese and English, which may result in language mixing issues when handling queries in other languages. For instance, DeepSeek-R1 might use English for reasoning and responses, even if the query is in a language other than English or Chinese. We aim to address this limitation in future updates.
 - Prompting Engineering: When evaluating DeepSeek-R1, we observe that it is sensitive to prompts. Few-shot prompting consistently degrades its performance. Therefore, we recommend users directly describe the problem and specify the output format using a zero-shot setting for optimal results.
 - Software Engineering Tasks: Due to the long evaluation times, which impact the efficiency of the RL process, large-scale RL has not been applied extensively in software engineering tasks. As a result, DeepSeek-R1 has not demonstrated a huge improvement over DeepSeek-V3 on software engineering benchmarks. Future versions will address this by implementing reject sampling on software engineering data or incorporating asynchronous evaluations during the RL process to improve efficiency.
+
 
 ## References
 
@@ -368,7 +376,7 @@ OpenAI. Introducing SWE-bench verified we're releasing a human-validated subset 
 
 Qwen. Qwq: Reflect deeply on the boundaries of the unknown, 2024a. URL https://qwenlm .github.io/blog/qwq-32b-preview/.
 
-Qwen. Qwen2.5: A party of foundation models, 2024b. URL https://qwenlm.github.io/b \( /\) qwen2.5.
+Qwen. Qwen2.5: A party of foundation models, 2024b. URL https://qwenlm.github.io/b $\log /$ qwen2.5.
 D. Rein, B. L. Hou, A. C. Stickland, J. Petty, R. Y. Pang, J. Dirani, J. Michael, and S. R. Bowman. GPQA: A graduate-level google-proof q\&a benchmark. arXiv preprint arXiv:2311.12022, 2023.
 Z. Shao, P. Wang, Q. Zhu, R. Xu, J. Song, M. Zhang, Y. Li, Y. Wu, and D. Guo. Deepseekmath: Pushing the limits of mathematical reasoning in open language models. arXiv preprint arXiv:2402.03300, 2024.
 D. Silver, T. Hubert, J. Schrittwieser, I. Antonoglou, M. Lai, A. Guez, M. Lanctot, L. Sifre, D. Kumaran, T. Graepel, T. P. Lillicrap, K. Simonyan, and D. Hassabis. Mastering chess and shogi by self-play with a general reinforcement learning algorithm. CoRR, abs/1712.01815, 2017a. URL http://arxiv.org/abs/1712.01815.
@@ -475,7 +483,7 @@ Peng Zhang
 Qiancheng Wang
 Qinyu Chen
 Qiushi Du
-Ruiqi \(^*\)
+Ruiqi $\mathrm{Ge}^{*}$
 Ruisong Zhang
 Ruizhe Pan
 Runji Wang
