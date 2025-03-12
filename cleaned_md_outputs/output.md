@@ -110,7 +110,7 @@ Figure 3: Illustrating Breadth-First Search
 
 # Breadth-First-Search Algorithm 
 
-```math
+```pseudo
 
 \begin{aligned}
 & \text { BFS (V,Adj,s): } \\
