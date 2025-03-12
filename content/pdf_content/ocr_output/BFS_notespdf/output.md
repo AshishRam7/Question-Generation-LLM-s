@@ -17,7 +17,7 @@ Graph $G=(V, E)$
 - unordered pair $\Longrightarrow$ undirected
 
 
-**Moondream Image Description:**  The figure illustrates the concept of directed graphs, specifically undirected graphs and directed graphs. Directed graphs are characterized by the presence of edges between nodes, represented by arrows, and directed edges between nodes, represented by circles. Undirected graphs, on the other hand, lack these directional arrows and have nodes without any arrows. The figure also provides mathematical definitions for directed and undirected graphs, including the notation V = (a,b,c) and E = (a,b,c,d), which represent directed and undirected graphs respectively.
+**Image Description:**  The figure illustrates a directed graph with a directed edge from 'a' to 'b' and 'c'. The edges have labels 'V' and 'E'. The graph is labeled 'undirected' and 'directed'. The directed graph has a cycle of nodes 'a', 'b', and 'c'. The directed graph has a cycle of nodes 'a', 'b', and 'c'. The undirected graph has a cycle of nodes 'a', 'b', and 'c'. The directed graph has a cycle of nodes 'a', 'b', and 'c'. The undirected graph has a cycle of nodes 'a', 'b', and 'c'. The directed graph has a cycle of nodes 'a', 'b', and 'c'. The undirected graph has a cycle of nodes 'a', 'b', and 'c'.
 
 Figure 1: Example to illustrate graph terminology
 
@@ -46,7 +46,7 @@ There are many.
 Consider a $2 \times 2 \times 2$ Rubik's cube
 
 
-**Moondream Image Description:**  The cube exhibits a 3D structure with a repeating pattern of colors and numbers. The colors are arranged in a grid-like fashion, with each face exhibiting a distinct color scheme. The numbers on each face are also distinct and evenly spaced. This pattern suggests a systematic approach to problem-solving or a methodical way of visualizing data.
+**Image Description:**  The cube exhibits a 3D structure with a regular pattern of color blocks. Each block is a distinct shade of orange, yellow, green, and purple. The colors are arranged in a symmetrical fashion, creating a visually appealing and balanced composition. The number of blocks in each color group is consistent, suggesting a systematic approach to color arrangement. The cube appears to be a 3D model or visualization, possibly used for educational purposes or as a visual aid.
 
 Configuration Graph:
 
@@ -58,12 +58,12 @@ Diameter ("God's Number")
 11 for $2 \times 2 \times 2,20$ for $3 \times 3 \times 3, \Theta\left(n^{2} / \lg n\right)$ for $n \times n \times n$ [Demaine, Demaine, Eisenstat Lubiw Winslow 2011]
 
 
-**Moondream Image Description:**  The visualization demonstrates a hierarchical approach to problem-solving, starting with a broad search for 'hardest configurations' and then narrowing down to 'breadth-first tree' solutions.  It highlights the importance of reachability in two steps, and notes that not all solutions are reachable in two steps.
+**Image Description:**  The figure illustrates a hierarchical clustering process, where a solution is initially identified as 'solved' and then expanded into a 'breadth-first' search. The 'breadth-first' approach is then evaluated for 'hardest configurations', and finally 'first tree' is selected. The number of nodes in each level of the hierarchy is represented by the number of circles, with the number of nodes in the 'breadth-first' and 'first tree' levels represented by three circles. The 'solved' solution is reached after two steps, while the 'breadth-first' solution is reached after three steps.
 
 \# vertices $=8!\cdot 3^{8}=264,539,520$ where 8 ! comes from having 8 cubelets in arbitrary positions and $3^{8}$ comes as each cubelet has 3 possible twists.
 
 
-**Moondream Image Description:**  The visualization demonstrates a 3D cube with a green cube at its center, surrounded by a red cube and a purple cube. The red cube is partially overlapped by the green cube, and the purple cube is partially overlapped by the green cube. The green cube appears to be the largest of the three, occupying roughly one-third of the cube's volume. The red cube is slightly smaller than the green cube, and the purple cube is slightly smaller than the red cube. The red cube is located at the bottom left corner of the cube, while the purple cube is located at the bottom right corner. The green cube is located at the top center of the cube.
+**Image Description:**  The visualization demonstrates a 3D cube with a green cube at its center, surrounded by a red cube and a purple cube. The red cube appears to be partially overlapping the green cube. The purple cube is positioned slightly offset from the center of the green cube. The green cube occupies approximately one-third of the cube's volume. The red cube and purple cube appear to be uniformly sized and positioned. The purple cube has a smaller diameter than the red cube. The green cube has a smaller height than the red cube. The red cube has a smaller width than the purple cube. The purple cube has a smaller depth than the red cube. The green cube has a smaller height than the red cube. The red cube has a smaller width than the purple cube. The purple cube has a smaller depth than the red cube.
 
 This can be divided by 24 if we remove cube symmetries and further divided by 3 to account for actually reachable configurations (there are 3 connected components).
 
@@ -76,7 +76,7 @@ Array $A d j$ of $|V|$ linked lists
 - for each vertex $u \in V, A d j[u]$ stores $u$ 's neighbors, i.e., $\{v \in V \mid(u, v) \in E\} . \quad(u, v)$ are just outgoing edges if directed. (See Fig. 2 for an example.)
 
 
-**Moondream Image Description:**  The diagram illustrates a sequence of events, starting with a single 'a' node connected to two 'b' nodes, then to a 'c' node, and finally to a 'd' node. The sequence is represented by a directed graph, where each node is a vertex and each edge represents a transition. The number of transitions from 'a' to 'b' is 2, from 'b' to 'c' is 1, and from 'c' to 'd' is 1. The diagram also shows the adjacency matrix of the graph, which is a square matrix representing the connections between nodes.
+**Image Description:**  The diagram illustrates a directed graph with a central node 'a' connected to three nodes 'b', 'c', and 'd'.  The graph is labeled with 'a', 'b', 'c', and 'd', and each node is connected to a single other node.  The graph is divided into three sections, each representing a different node 'a', 'b', and 'c'.  Each section is further divided into two sections, 'c' and 'd', representing the connections between the nodes.  The connections between 'a' and 'b' are represented by blue arrows, while the connections between 'a' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c' and 'd' are represented by light blue arrows. The connections between 'b' and 'c' and 'c'
 
 Figure 2: Adjacency List Representation: Space $\Theta(V+E)$
 
@@ -100,7 +100,7 @@ In other words, this is method for implicit graphs
 - can also make edges objects
 
 
-**Moondream Image Description:**  The diagram illustrates a sequence of events or a process, starting with a single entity (e.a.) and branching out into two entities (e.b and e.c). The branching pattern suggests a hierarchical structure, possibly representing a hierarchical relationship or a network. The numerical values (e.a., e.b, e.c.) likely represent different levels or stages within the process.
+**Image Description:**  The figure illustrates a simple network structure.  The top node is labeled 'e.a' and connected to the bottom node labeled 'e'.  The bottom node is labeled 'e.b' and is connected to the top node.  The number of connections between the nodes is 2.  The network appears to be a directed graph, where each node is a node and each connection is an edge.
 - $u$.edges $=$ list of (outgoing) edges from $u$.
 - advantage: store edge data without hashing
 
@@ -113,7 +113,7 @@ Explore graph level by level from $s$
 - level $i=$ vertices reachable by path of $i$ edges but not fewer
 
 
-**Moondream Image Description:**  The visualization demonstrates a hierarchical neural network structure.  It shows two levels of neurons, labeled 'level1' and 'level2', connected by blue lines.  Each level has a single input neuron and multiple output neurons.  The number of input neurons and output neurons for each level is clearly indicated.  The diagram also illustrates the concept of a sigmoid function, represented by the dotted line connecting the input and output neurons.
+**Image Description:**  The visualization demonstrates a hierarchical neural network structure.  It shows two levels of neurons, labeled 'level1' and 'level2', connected by blue lines.  Each level has a single input neuron and multiple output neurons.  The number of input neurons and output neurons in each level is represented by a number.  The last level has three input neurons and three output neurons.  The number of connections between neurons in each level is represented by a number.
 
 Figure 3: Illustrating Breadth-First Search
 
@@ -148,7 +148,7 @@ See CLRS for queue-based implementation
 
 
 
-**Moondream Image Description:**  The diagram illustrates a hierarchical structure, likely representing a biological process or system.  Level 1 and Level 2 are connected by a red line, while Level 3 is isolated.  Each level is numbered sequentially.  The nodes are labeled with letters and numbers, and the connections between them are represented by blue lines.  The number of connections between each node varies, with some nodes having more than one connection.  The overall structure suggests a hierarchical model, possibly involving multiple levels of interaction or processing.
+**Image Description:**  The diagram illustrates a hierarchical structure, likely representing a biological process or system.  Level 1 and Level 2 are connected by a red line, while Level 3 is isolated.  Each level is numbered, and the nodes are labeled with letters.  The connections between nodes are represented by blue lines.  The number of nodes in each level appears to be the same.  The structure suggests a hierarchical organization, with each level potentially representing a different stage or component of a larger system.
 frontier $_{n}=\{\mathrm{s}\}$
 frontier $_{1}=\{\mathrm{a}, \mathrm{x}\}$
 frontier $_{2}=\{\mathrm{z}, \mathrm{d}, \mathrm{c}\}$
