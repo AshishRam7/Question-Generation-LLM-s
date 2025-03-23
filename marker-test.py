@@ -13,6 +13,8 @@ DATALAB_API_KEY = os.environ.get("DATALAB_API_KEY")
 DATALAB_MARKER_URL = os.environ.get("DATALAB_MARKER_URL")
 MOONDREAM_API_KEY = os.environ.get("MOONDREAM_API_KEY")
 
+model = md.vl(api_key=MOONDREAM_API_KEY)
+
 # Directories
 INPUT_DIR = "input_dir"
 RESULTS_DIR = "results"
@@ -23,7 +25,6 @@ MAX_POLLS = 300
 POLL_INTERVAL = 3  # seconds
 
 # Moondream API model configuration
-model = md.vl(api_key=MOONDREAM_API_KEY)
 
 def generate_description_for_image(image_path, figure_caption=""):
     """
@@ -132,7 +133,6 @@ def process_markdown(markdown_text, saved_images):
         i += 1
     return "\n".join(processed_lines)
 
-# ----- MAIN SCRIPT -----
 def main():
     os.makedirs(RESULTS_DIR, exist_ok=True)
     os.makedirs(FINAL_RESULTS_DIR, exist_ok=True)

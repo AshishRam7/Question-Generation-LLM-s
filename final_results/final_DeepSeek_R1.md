@@ -1,6 +1,6 @@
-### 
+### No Title
 
-#### Figure Description:
+#### Image Description:
  The visualization presents a deep-sea whale, a symbol of marine life, encircled by a blue circle. The whale's head is facing towards the right, while its tail curves around the left. The whale's body is depicted in a simplified, stylized manner. The overall color scheme is blue, with the whale and circle being the primary focus. The image suggests a connection between marine life and the concept of deep-sea exploration, potentially hinting at the search for new species or the study of underwater ecosystems.
 
 
@@ -16,37 +16,37 @@ We introduce our first-generation reasoning models, DeepSeek-R1-Zero and DeepSee
 
 ### Figure 1 | Benchmark performance of DeepSeek-R1.
 
-#### Figure Description:
+#### Image Description:
  The visualization presents benchmark performance of DeepSeek-R1 across multiple datasets and configurations.  It shows the accuracy for each dataset, ranging from AIME 2024 to MMMLU, with corresponding percentages.  The DeepSeek-R1 benchmark consistently outperformed others, achieving 99.6%, 96.3%, 93.4%, 90.8%, and 89.5% accuracy.  The codebase for DeepSeek-R1 is represented by OpenAI-1-1217, while the codebase for DeepSeek-R1-32B is represented by DeepSeek-R1.
 
 
 ## **Contents**
 
-| 1 | Introduction                            |                                                              |                                                                        |  |  | 3  |
-|---|-----------------------------------------|--------------------------------------------------------------|------------------------------------------------------------------------|--|--|----|
-|   | 1.1                                     | Contributions                                                |                                                                        |  |  | 4  |
-|   | 1.2                                     | Summary of Evaluation Results                                |                                                                        |  |  | 4  |
-| 2 | Approach                                |                                                              |                                                                        |  |  | 5  |
-|   | 2.1                                     | Overview                                                     |                                                                        |  |  | 5  |
-|   | 2.2                                     | DeepSeek-R1-Zero: Reinforcement Learning on the Base Model   |                                                                        |  |  | 5  |
-|   |                                         | 2.2.1                                                        | Reinforcement Learning Algorithm                                       |  |  | 5  |
-|   |                                         | 2.2.2                                                        | Reward Modeling                                                        |  |  | 6  |
-|   |                                         | 2.2.3                                                        | Training Template                                                      |  |  | 6  |
-|   |                                         | 2.2.4                                                        | Performance, Self-evolution Process and Aha Moment of DeepSeek-R1-Zero |  |  | 6  |
-|   | 2.3                                     | DeepSeek-R1: Reinforcement Learning with Cold Start          |                                                                        |  |  | 9  |
-|   |                                         | 2.3.1                                                        | Cold Start                                                             |  |  | 9  |
-|   |                                         | 2.3.2                                                        | Reasoning-oriented Reinforcement Learning                              |  |  | 10 |
-|   |                                         | 2.3.3                                                        | Rejection Sampling and Supervised Fine-Tuning                          |  |  | 10 |
-|   |                                         | 2.3.4                                                        | Reinforcement Learning for all Scenarios                               |  |  | 11 |
-|   | 2.4                                     | Distillation: Empower Small Models with Reasoning Capability |                                                                        |  |  | 11 |
-| 3 | Experiment                              |                                                              |                                                                        |  |  | 11 |
-|   | 3.1                                     | DeepSeek-R1 Evaluation                                       |                                                                        |  |  | 12 |
-|   | 3.2                                     | Distilled Model Evaluation                                   |                                                                        |  |  | 14 |
-| 4 | Discussion                              |                                                              |                                                                        |  |  | 14 |
-|   | 4.1                                     | Distillation v.s. Reinforcement Learning                     |                                                                        |  |  | 14 |
-|   | 4.2                                     | Unsuccessful Attempts                                        |                                                                        |  |  | 15 |
-| 5 | Conclusion, Limitation, and Future Work |                                                              |                                                                        |  |  | 16 |
-| A | Contributions and Acknowledgments       |                                                              |                                                                        |  |  | 20 |
+| 1 |                                                      | Introduction                                                    |                                                                        |    |  |  |  |  |
+|---|------------------------------------------------------|-----------------------------------------------------------------|------------------------------------------------------------------------|----|--|--|--|--|
+|   | 1.1                                                  |                                                                 | Contributions<br>.                                                     | 4  |  |  |  |  |
+|   | 1.2                                                  |                                                                 | Summary of Evaluation Results                                          | 4  |  |  |  |  |
+| 2 |                                                      | Approach                                                        |                                                                        | 5  |  |  |  |  |
+|   | 2.1<br>Overview                                      |                                                                 |                                                                        |    |  |  |  |  |
+|   | 2.2                                                  | DeepSeek-R1-Zero: Reinforcement Learning on the Base Model<br>. |                                                                        |    |  |  |  |  |
+|   |                                                      | 2.2.1                                                           | Reinforcement Learning Algorithm<br>.                                  | 5  |  |  |  |  |
+|   |                                                      | 2.2.2                                                           | Reward Modeling<br>.                                                   | 6  |  |  |  |  |
+|   |                                                      | 2.2.3                                                           | Training Template<br>.                                                 | 6  |  |  |  |  |
+|   |                                                      | 2.2.4                                                           | Performance, Self-evolution Process and Aha Moment of DeepSeek-R1-Zero | 6  |  |  |  |  |
+|   | 2.3                                                  |                                                                 | DeepSeek-R1: Reinforcement Learning with Cold Start<br>.               | 9  |  |  |  |  |
+|   |                                                      | 2.3.1                                                           | Cold Start<br>.                                                        | 9  |  |  |  |  |
+|   |                                                      | 2.3.2                                                           | Reasoning-oriented Reinforcement Learning<br>.                         | 10 |  |  |  |  |
+|   |                                                      | 2.3.3                                                           | Rejection Sampling and Supervised Fine-Tuning                          | 10 |  |  |  |  |
+|   |                                                      | 2.3.4                                                           | Reinforcement Learning for all Scenarios<br>.                          | 11 |  |  |  |  |
+|   | 2.4                                                  |                                                                 | Distillation: Empower Small Models with Reasoning Capability           | 11 |  |  |  |  |
+| 3 | Experiment                                           |                                                                 |                                                                        |    |  |  |  |  |
+|   | 3.1                                                  | DeepSeek-R1 Evaluation                                          |                                                                        |    |  |  |  |  |
+|   | 3.2                                                  |                                                                 | Distilled Model Evaluation<br>.                                        | 14 |  |  |  |  |
+| 4 |                                                      | Discussion                                                      |                                                                        | 14 |  |  |  |  |
+|   | 4.1<br>Distillation v.s. Reinforcement Learning<br>. |                                                                 |                                                                        |    |  |  |  |  |
+|   | 4.2                                                  |                                                                 | Unsuccessful Attempts                                                  | 15 |  |  |  |  |
+| 5 |                                                      |                                                                 | Conclusion, Limitation, and Future Work                                | 16 |  |  |  |  |
+| A |                                                      | Contributions and Acknowledgments<br>20                         |                                                                        |    |  |  |  |  |
 
 ### <span id="page-2-0"></span>**1. Introduction**
 
@@ -90,21 +90,13 @@ Reinforcement learning has demonstrated significant effectiveness in reasoning t
 
 #### <span id="page-4-3"></span>*2.2.1. Reinforcement Learning Algorithm*
 
-**Group Relative Policy Optimization** In order to save the training costs of RL, we adopt Group Relative Policy Optimization (GRPO) [(Shao et al., 2024)](#page-17-5), which foregoes the critic model that is typically the same size as the policy model, and estimates the baseline from group scores instead. Specifically, for each question $q$, GRPO samples a group of outputs ${o_1, o_2, \dots, o_G}$ from the old policy $\pi_{\theta_{old}}$ and then optimizes the policy model $\pi_{\theta}$ by maximizing the following objective:
+**Group Relative Policy Optimization** In order to save the training costs of RL, we adopt Group Relative Policy Optimization (GRPO) [(Shao et al., 2024)](#page-17-5), which foregoes the critic model that is typically the same size as the policy model, and estimates the baseline from group scores instead. Specifically, for each question , GRPO samples a group of outputs {1, 2, · · · , } from the old policy and then optimizes the policy model by maximizing the following objective:
 
-$$\mathcal{J}_{G R P O}(\theta)=\mathbb{E}\left[q \sim P(Q),\left\{o_{i}\right\}_{i=1}^{G} \sim \pi_{\theta_{o l d}}(O|q)\right]$$
-
-$$\frac{1}{G} \sum_{i=1}^{G}\left(\min \left(\frac{\pi_{\theta}\left(o_{i} | q\right)}{\pi_{\theta_{o l d}}\left(o_{i} | q\right)} A_{i}, \operatorname{clip}\left(\frac{\pi_{\theta}\left(o_{i} | q\right)}{\pi_{\theta_{o l d}}\left(o_{i} | q\right)}, 1-\varepsilon, 1+\varepsilon\right) A_{i}\right)-\beta \mathbb{D}_{K L}\left(\pi_{\theta} || \pi_{r e f}\right)\right)$$
-
-$$\mathbb{D}_{K L}\left(\pi_{\theta} || \pi_{c}\right)=\frac{\pi_{r e f}\left(o_{i} | q\right)}{\frac{\pi_{r e f}\left(o_{i} | q\right)}{1}} \log \frac{\pi_{r e f}\left(o_{i} | q\right)}{1}$$
-
-$$(1)$$
-
-$$(2)$$
+$$\begin{split} \mathcal{J}_{GRPO}(\theta) &= \mathbb{E}\left[q \sim P(Q), \{o_{i}\}_{i=1}^{G} \sim \pi_{\theta \cup d}(O[q])\right] \\ &\frac{1}{G} \sum_{i=1}^{G} \left( \min\left(\frac{\pi_{\theta}(o_{i}|q)}{\pi_{\theta \cup d}(o_{i}|q)} A_{i\prime} \text{clip}\left(\frac{\pi_{\theta}(o_{i}|q)}{\pi_{\theta \cup d}(o_{i}|q)}, 1-\varepsilon, 1+\varepsilon\right) A_{i}\right) - \beta \mathbb{D}_{KL}\left(\pi_{\theta}(|\pi_{\theta \cup f}|)\right)\right) \\ &\qquad \qquad \qquad \qquad \pi_{\mathrm{ref}}\left(\begin{subarray}{c} \pi_{\mathrm{ref}}\left(o_{i}|q\right) \end{subarray}; \pi_{\mathrm{ref}}\left(o_{i}|q\right) \right). \end{split} \tag{1}$$
 
 $$\mathbb{I}\left(\mathbb{D}_{KL}\left(\pi_{\theta}||\pi_{ref}\right)\right) = \frac{\pi_{ref}(o_{i}|q)}{\pi_{\theta}(o_{i}|q)} - \log\frac{\pi_{ref}(o_{i}|q)}{\pi_{\theta}(o_{i}|q)} - 1,\tag{2}$$
 
-where $\varepsilon$ and $\beta$ are hyper-parameters, and $A_i$ is the advantage, computed using a group of rewards ${r_1, r_2,..., r_G}$ corresponding to the outputs within each group:
+where and are hyper-parameters, and is the advantage, computed using a group of rewards {1,2, . . . ,} corresponding to the outputs within each group:
 
 $$A_{\rm i} = \frac{r_{\rm i} - \text{mean}(\{r_1, r_2, \dots, r_{\rm i}\})}{\text{std}(\{r_1, r_2, \dots, r_G\})}.\tag{3}$$
 
@@ -136,8 +128,8 @@ Table [2](#page-6-1) provides a comparative analysis between DeepSeek-R1-Zero an
 | Model            | AIME 2024 |         | MATH-500 | GPQA<br>Diamond | LiveCode<br>Bench | CodeForces |
 |------------------|-----------|---------|----------|-----------------|-------------------|------------|
 |                  | pass@1    | cons@64 | pass@1   | pass@1          | pass@1            | rating     |
-| OpenAI-01-mini   | 63.6      | 80.0    | 90.0     | 60.0            | 53.8              | 1820       |
-| OpenAI-01-0912   | 74.4      | 83.3    | 94.8     | 77.3            | 63.4              | 1843       |
+| OpenAI-o1-mini   | 63.6      | 80.0    | 90.0     | 60.0            | 53.8              | 1820       |
+| OpenAI-o1-0912   | 74.4      | 83.3    | 94.8     | 77.3            | 63.4              | 1843       |
 | DeepSeek-R1-Zero | 71.0      | 86.7    | 95.9     | 73.3            | 50.0              | 1444       |
 
 <span id="page-6-0"></span>
@@ -148,7 +140,7 @@ Table [2](#page-6-1) provides a comparative analysis between DeepSeek-R1-Zero an
 
 ### Figure 2 | AIME accuracy of DeepSeek-R1-Zero during training. For each question, we sample 16 responses and calculate the overall average accuracy to ensure a stable evaluation.
 
-#### Figure Description:
+#### Image Description:
  The figure presents the DeepSeek-R1-Zero AIME accuracy during training.  For each question, 16 responses are sampled, and the average accuracy is calculated. The overall trend shows a steady increase in accuracy over time.
 
 
@@ -234,32 +226,32 @@ For education-oriented knowledge benchmarks such as MMLU, MMLU-Pro, and GPQA Dia
 
 <sup>3</sup><https://www.cms.org.cn/Home/comp/comp/cid/12.html>
 
-| Benchmark (Metric) | Claude-3.5-<br>Sonnet-1022 | GPT-4o<br>0513 | DeepSeek<br>V3 | OpenAI<br>o1-mini | OpenAI<br>o1-1217 | DeepSeek<br>R1 |      |
-|--------------------|----------------------------|----------------|----------------|-------------------|-------------------|----------------|------|
-| Architecture       | -                          | -              | MoE            | -                 | -                 | MoE            |      |
-| # Activated Params | -                          | -              | 37B            | -                 | -                 | 37B            |      |
-| # Total Params     | -                          | -              | 671B           | -                 | -                 | 671B           |      |
-| English            | MMLU (Pass@1)              | 88.3           | 87.2           | 88.5              | 85.2              | 91.8           | 90.8 |
-|                    | MMLU-Redux (EM)            | 88.9           | 88.0           | 89.1              | 86.7              | -              | 92.9 |
-|                    | MMLU-Pro (EM)              | 78.0           | 72.6           | 75.9              | 80.3              | -              | 84.0 |
-|                    | DROP (3-shot F1)           | 88.3           | 83.7           | 91.6              | 83.9              | 90.2           | 92.2 |
-|                    | IF-Eval (Prompt Strict)    | 86.5           | 84.3           | 86.1              | 84.8              | -              | 83.3 |
-|                    | GPQA Diamond (Pass@1)      | 65.0           | 49.9           | 59.1              | 60.0              | 75.7           | 71.5 |
-|                    | SimpleQA (Correct)         | 28.4           | 38.2           | 24.9              | 7.0               | 47.0           | 30.1 |
-|                    | FRAMES (Acc.)              | 72.5           | 80.5           | 73.3              | 76.9              | -              | 82.5 |
-|                    | AlpacaEval2.0 (LC-winrate) | 52.0           | 51.1           | 70.0              | 57.8              | -              | 87.6 |
-|                    | ArenaHard (GPT-4-1106)     | 85.2           | 80.4           | 85.5              | 92.0              | -              | 92.3 |
-| Code               | LiveCodeBench (Pass@1-COT) | 38.9           | 32.9           | 36.2              | 53.8              | 63.4           | 65.9 |
-|                    | Codeforces (Percentile)    | 20.3           | 23.6           | 58.7              | 93.4              | 96.6           | 96.3 |
-|                    | Codeforces (Rating)        | 717            | 759            | 1134              | 1820              | 2061           | 2029 |
-|                    | SWE Verified (Resolved)    | 50.8           | 38.8           | 42.0              | 41.6              | 48.9           | 49.2 |
-|                    | Aider-Polyglot (Acc.)      | 45.3           | 16.0           | 49.6              | 32.9              | 61.7           | 53.3 |
-| Math               | AIME 2024 (Pass@1)         | 16.0           | 9.3            | 39.2              | 63.6              | 79.2           | 79.8 |
-|                    | MATH-500 (Pass@1)          | 78.3           | 74.6           | 90.2              | 90.0              | 96.4           | 97.3 |
-|                    | CNMO 2024 (Pass@1)         | 13.1           | 10.8           | 43.2              | 67.6              | -              | 78.8 |
-| Chinese            | CLUEWSC (EM)               | 85.4           | 87.9           | 90.9              | 89.9              | -              | 92.8 |
-|                    | C-Eval (EM)                | 76.7           | 76.0           | 86.5              | 68.9              | -              | 91.8 |
-|                    | C-SimpleQA (Correct)       | 55.4           | 58.7           | 68.0              | 40.3              | -              | 63.7 |
+|         | Benchmark (Metric)         | Claude-3.5- GPT-4o DeepSeek OpenAI OpenAI DeepSeek<br>Sonnet-1022 | 0513 | V3   | o1-mini | o1-1217 | R1   |
+|---------|----------------------------|-------------------------------------------------------------------|------|------|---------|---------|------|
+|         | Architecture               | -                                                                 | -    | MoE  | -       | -       | MoE  |
+|         | # Activated Params         | -                                                                 | -    | 37B  | -       | -       | 37B  |
+|         | # Total Params             | -                                                                 | -    | 671B | -       | -       | 671B |
+| English | MMLU (Pass@1)              | 88.3                                                              | 87.2 | 88.5 | 85.2    | 91.8    | 90.8 |
+|         | MMLU-Redux (EM)            | 88.9                                                              | 88.0 | 89.1 | 86.7    | -       | 92.9 |
+|         | MMLU-Pro (EM)              | 78.0                                                              | 72.6 | 75.9 | 80.3    | -       | 84.0 |
+|         | DROP (3-shot F1)           | 88.3                                                              | 83.7 | 91.6 | 83.9    | 90.2    | 92.2 |
+|         | IF-Eval (Prompt Strict)    | 86.5                                                              | 84.3 | 86.1 | 84.8    | -       | 83.3 |
+|         | GPQA Diamond (Pass@1)      | 65.0                                                              | 49.9 | 59.1 | 60.0    | 75.7    | 71.5 |
+|         | SimpleQA (Correct)         | 28.4                                                              | 38.2 | 24.9 | 7.0     | 47.0    | 30.1 |
+|         | FRAMES (Acc.)              | 72.5                                                              | 80.5 | 73.3 | 76.9    | -       | 82.5 |
+|         | AlpacaEval2.0 (LC-winrate) | 52.0                                                              | 51.1 | 70.0 | 57.8    | -       | 87.6 |
+|         | ArenaHard (GPT-4-1106)     | 85.2                                                              | 80.4 | 85.5 | 92.0    | -       | 92.3 |
+| Code    | LiveCodeBench (Pass@1-COT) | 38.9                                                              | 32.9 | 36.2 | 53.8    | 63.4    | 65.9 |
+|         | Codeforces (Percentile)    | 20.3                                                              | 23.6 | 58.7 | 93.4    | 96.6    | 96.3 |
+|         | Codeforces (Rating)        | 717                                                               | 759  | 1134 | 1820    | 2061    | 2029 |
+|         | SWE Verified (Resolved)    | 50.8                                                              | 38.8 | 42.0 | 41.6    | 48.9    | 49.2 |
+|         | Aider-Polyglot (Acc.)      | 45.3                                                              | 16.0 | 49.6 | 32.9    | 61.7    | 53.3 |
+| Math    | AIME 2024 (Pass@1)         | 16.0                                                              | 9.3  | 39.2 | 63.6    | 79.2    | 79.8 |
+|         | MATH-500 (Pass@1)          | 78.3                                                              | 74.6 | 90.2 | 90.0    | 96.4    | 97.3 |
+|         | CNMO 2024 (Pass@1)         | 13.1                                                              | 10.8 | 43.2 | 67.6    | -       | 78.8 |
+| Chinese | CLUEWSC (EM)               | 85.4                                                              | 87.9 | 90.9 | 89.9    | -       | 92.8 |
+|         | C-Eval (EM)                | 76.7                                                              | 76.0 | 86.5 | 68.9    | -       | 91.8 |
+|         | C-SimpleQA (Correct)       | 55.4                                                              | 58.7 | 68.0 | 40.3    | -       | 63.7 |
 
 Table 4 | Comparison between DeepSeek-R1 and other representative models.
 
@@ -273,19 +265,19 @@ performance of DeepSeek-R1 will improve in the next version, as the amount of re
 
 <span id="page-13-0"></span>
 
-| Model                         | AIME 2024 |         | MATH-500 | GPQA Diamond | LiveCode Bench | CodeForces |
-|-------------------------------|-----------|---------|----------|--------------|----------------|------------|
-|                               | pass@1    | cons@64 | pass@1   | pass@1       | pass@1         | rating     |
-| GPT-4o-0513                   | 9.3       | 13.4    | 74.6     | 49.9         | 32.9           | 759        |
-| Claude-3.5-Sonnet-1022        | 16.0      | 26.7    | 78.3     | 65.0         | 38.9           | 717        |
-| OpenAI-o1-mini                | 63.6      | 80.0    | 90.0     | 60.0         | 53.8           | 1820       |
-| QwQ-32B-Preview               | 50.0      | 60.0    | 90.6     | 54.5         | 41.9           | 1316       |
-| DeepSeek-R1-Distill-Qwen-1.5B | 28.9      | 52.7    | 83.9     | 33.8         | 16.9           | 954        |
-| DeepSeek-R1-Distill-Qwen-7B   | 55.5      | 83.3    | 92.8     | 49.1         | 37.6           | 1189       |
-| DeepSeek-R1-Distill-Qwen-14B  | 69.7      | 80.0    | 93.9     | 59.1         | 53.1           | 1481       |
-| DeepSeek-R1-Distill-Qwen-32B  | 72.6      | 83.3    | 94.3     | 62.1         | 57.2           | 1691       |
-| DeepSeek-R1-Distill-Llama-8B  | 50.4      | 80.0    | 89.1     | 49.0         | 39.6           | 1205       |
-| DeepSeek-R1-Distill-Llama-70B | 70.0      | 86.7    | 94.5     | 65.2         | 57.5           | 1633       |
+| Model                         | AIME 2024 |         | MATH-500 | GPQA<br>Diamond | LiveCode<br>Bench | CodeForces |
+|-------------------------------|-----------|---------|----------|-----------------|-------------------|------------|
+|                               | pass@1    | cons@64 | pass@1   | pass@1          | pass@1            | rating     |
+| GPT-4o-0513                   | 9.3       | 13.4    | 74.6     | 49.9            | 32.9              | 759        |
+| Claude-3.5-Sonnet-1022        | 16.0      | 26.7    | 78.3     | 65.0            | 38.9              | 717        |
+| OpenAI-o1-mini                | 63.6      | 80.0    | 90.0     | 60.0            | 53.8              | 1820       |
+| QwQ-32B-Preview               | 50.0      | 60.0    | 90.6     | 54.5            | 41.9              | 1316       |
+| DeepSeek-R1-Distill-Qwen-1.5B | 28.9      | 52.7    | 83.9     | 33.8            | 16.9              | 954        |
+| DeepSeek-R1-Distill-Qwen-7B   | 55.5      | 83.3    | 92.8     | 49.1            | 37.6              | 1189       |
+| DeepSeek-R1-Distill-Qwen-14B  | 69.7      | 80.0    | 93.9     | 59.1            | 53.1              | 1481       |
+| DeepSeek-R1-Distill-Qwen-32B  | 72.6      | 83.3    | 94.3     | 62.1            | 57.2              | 1691       |
+| DeepSeek-R1-Distill-Llama-8B  | 50.4      | 80.0    | 89.1     | 49.0            | 39.6              | 1205       |
+| DeepSeek-R1-Distill-Llama-70B | 70.0      | 86.7    | 94.5     | 65.2            | 57.5              | 1633       |
 
 #### <span id="page-13-1"></span>**3.2. Distilled Model Evaluation**
 
